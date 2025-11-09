@@ -1,0 +1,19 @@
+﻿selenium-pom-opencart/
+├── config/
+│   ├── config.ini          # Datos como URL, navegador, credenciales
+├── pages/
+│   ├── base_page.py        # Métodos comunes de Selenium (esperas, clics)
+│   ├── home_page.py        # Página de inicio
+│   ├── register_page.py    # Página de registro de cuenta
+│   ├── login_page.py       # Página de inicio de sesión
+│   ├── product_page.py     # Página de un producto
+│   ├── shopping_cart_page.py # Página del carrito de compras
+│   ├── checkout_page.py      # Página de finalización de compra
+├── tests/
+│   ├── test_e2e_flow.py    # El script que ejecuta el flujo de prueba
+├── utils/
+│   ├── custom_exceptions.py # Manejo de excepciones personalizadas
+│   ├── helpers.py           # Funciones de utilidad (ej. generar email aleatorio)
+├── .gitignore
+├── README.md               # Instrucciones de ejecución
+├── requirements.txt        # Dependencias de Python

@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "037e646e-96a2-4973-b06b-2a0029963aee",
+		"name": "API_Tests.postman_collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32790210"
+	},
+	"item": [
+		{
+			"name": "Consulta_Simple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta_Script",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Convertir el cuerpo de la respuesta en un objeto JSON\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"// Definir los contenidos esperados a buscar\r",
+							"const expectedContent = [\r",
+							"    {\r",
+							"        \"title\": \"dolorum ut in voluptas mollitia et saepe quo animi\",\r",
+							"        \"body\": \"aut dicta possimus sint mollitia voluptas commodi quo doloremque\\niste corrupti reiciendis voluptatem eius rerum\\nsit cumque quod eligendi laborum minima\\nperferendis recusandae assumenda consectetur porro architecto ipsum ipsam\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"title\": \"autem hic labore sunt dolores incidunt\",\r",
+							"        \"body\": \"enim et ex nulla\\nomnis voluptas quia qui\\nvoluptatem consequatur numquam aliquam sunt\\ntotam recusandae id dignissimos aut sed asperiores deserunt\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"// Bandera para verificar si todo el contenido esperado fue encontrado\r",
+							"let allContentFound = true;\r",
+							"\r",
+							"expectedContent.forEach((expectedItem, index) => {\r",
+							"    // Buscar si existe AL MENOS UN elemento en la respuesta que coincida COMPLETAMENTE\r",
+							"    const found = responseData.some(post => \r",
+							"        post.title === expectedItem.title && post.body === expectedItem.body\r",
+							"    );\r",
+							"\r",
+							"    pm.test(`Verificar contenido esperado ${index + 1} (Title y Body)`, () => {\r",
+							"        pm.expect(found).to.be.true;\r",
+							"    });\r",
+							"\r",
+							"    if (!found) {\r",
+							"        allContentFound = false;\r",
+							"        console.error(`Contenido esperado no encontrado: Título: \"${expectedItem.title}\"`);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Todos los títulos y cuerpos especificados están presentes\", () => {\r",
+							"    pm.expect(allContentFound).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 Created\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Obtener los datos del Body de la respuesta\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"// Obtener los datos dinámicos ingresados desde el archivo JSON\r",
+							"const nameInput = pm.iterationData.get(\"name\");\r",
+							"const jobInput = pm.iterationData.get(\"job\");\r",
+							"\r",
+							"pm.test(\"El nombre de la respuesta coincide con el nombre enviado\", function () {\r",
+							"    // Se espera que el 'name' en la respuesta sea igual al 'name' enviado\r",
+							"    pm.expect(responseData.name).to.equal(nameInput);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El trabajo de la respuesta coincide con el trabajo enviado\", function () {\r",
+							"    // Se espera que el 'job' en la respuesta sea igual al 'job' enviado\r",
+							"    pm.expect(responseData.job).to.equal(jobInput);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Se ha generado un ID único en la respuesta\", function () {\r",
+							"    // Se espera que la respuesta contenga una propiedad 'id'\r",
+							"    pm.expect(responseData).to.have.property('id');\r",
+							"    // Se espera que el valor de 'id' sea una cadena no vacía\r",
+							"    pm.expect(responseData.id).to.be.a('string').and.to.not.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
