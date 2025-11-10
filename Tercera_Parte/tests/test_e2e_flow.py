@@ -14,7 +14,7 @@ from pages.product_page import ProductPage
 from pages.shopping_cart_page import ShoppingCartPage
 from pages.checkout_page import CheckoutPage
 
-# --- Configuración y Setup ---
+# --- Configuración---
 
 @pytest.fixture(scope="session")
 def config():
