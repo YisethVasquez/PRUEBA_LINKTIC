@@ -3,11 +3,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class BasePage:
-    """Clase base que contiene métodos genéricos y el inicializador del driver."""
+    """Clase base que contiene mÃ©todos genÃ©ricos y el inicializador del driver."""
     
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10) # Espera explícita de 10 segundos
+        self.wait = WebDriverWait(self.driver, 50) # Espera explÃ­cita de 50 segundos
 
     def _find_element(self, locator):
         """Espera y encuentra un elemento."""
